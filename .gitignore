@@ -1,0 +1,16 @@
+# Derlenmiş Dosyalar
+*.o
+app1
+app2
+
+# Editör Ayarları (VS Code vb.)
+.vscode/
+.idea/
+*.swp
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
+
+# Test çıktıları (Opsiyonel)
+# Eğer test scriptleri geçici dosya oluşturuyorsa buraya eklenir
