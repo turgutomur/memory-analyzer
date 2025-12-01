@@ -53,7 +53,7 @@ void analyze_file(const char *filename, int mode) {
         // 2. GENİŞLETİLMİŞ ANALİZ (-x modu) 
         if (mode == MODE_EXTENDED) {
             
-           ,
+           
             if (strstr(line, "printf(") && !strstr(line, "\"")) {
                 printf("[CRITICAL] Line %d: Possible Format String Vulnerability (missing quotation marks)\n", line_num);
                 printf("  Code: %s\n", line);
