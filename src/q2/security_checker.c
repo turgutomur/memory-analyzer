@@ -16,7 +16,7 @@ const int NUM_FUNCTIONS = 9;
 void analyze_file(const char *filename, int mode) {
     FILE *fp = fopen(filename, "r");
     if (!fp) {
-        perror("Dosya acilamadi");
+        perror("Failed to open file");
         return;
     }
 
@@ -26,15 +26,14 @@ void analyze_file(const char *filename, int mode) {
 
     while (fgets(line, sizeof(line), fp)) {
         line_num++;
-        // Satır sonu karakterini temizle
+        
         line[strcspn(line, "\n")] = 0;
 
         // 1. TEMEL TARAMA (-s ve -r modları için)
         for (int i = 0; i < NUM_FUNCTIONS; i++) {
-            // Basit bir strstr araması yapıyoruz.
-            // (Not: "mystrcpy" gibi isimleri de bulabilir, tam parser için lexer gerekir ama bu proje için strstr yeterli)
+            
             char search_term[50];
-            sprintf(search_term, "%s(", UNSAFE_FUNCTIONS[i]); // Fonksiyon çağrısı arıyoruz "gets("
+            sprintf(search_term, "%s(", UNSAFE_FUNCTIONS[i]); 
 
             if (strstr(line, search_term)) {
                 issues_found++;
@@ -54,22 +53,20 @@ void analyze_file(const char *filename, int mode) {
         // 2. GENİŞLETİLMİŞ ANALİZ (-x modu) 
         if (mode == MODE_EXTENDED) {
             
-            // 2.3.1 Format String Vulnerability
-            // printf(user_input) gibi kullanımları arar (çift tırnak yoksa şüpheli)
+           ,
             if (strstr(line, "printf(") && !strstr(line, "\"")) {
-                printf("[CRITICAL] Line %d: Olası Format String Acigi (Tirnak isareti yok)\n", line_num);
+                printf("[CRITICAL] Line %d: Possible Format String Vulnerability (missing quotation marks)\n", line_num);
                 printf("  Code: %s\n", line);
             }
 
-            // 2.3.2 Command Injection
+       
             if (strstr(line, "system(")) {
-                printf("[CRITICAL] Line %d: Command Injection Riski (system kullanilmis)\n", line_num);
+                printf("[CRITICAL] Line %d: Command injection risk (system used)\n", line_num);
             }
 
-            // 2.3.3 Integer Overflow
-            // malloc içinde çarpma işlemi (*) varsa şüpheli kabul ediyoruz 
+            
             if (strstr(line, "malloc(") && strstr(line, "*")) {
-                 printf("[WARNING] Line %d: Olası Integer Overflow (malloc icinde carpma islemi)\n", line_num);
+                 printf("[WARNING] Line %d: Possible Integer Overflow (multiplication inside malloc)\n", line_num);
                  printf("  Code: %s\n", line);
             }
         }

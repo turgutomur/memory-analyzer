@@ -6,14 +6,14 @@ int main() {
     char buffer[10];
     
     // --- 1. Güvensiz Fonksiyonlar (Scan & Recommend Modu) ---
-    gets(buffer);  // [HATA] Buffer overflow riski
-    strcpy(buffer, "cok uzun bir yazi"); // [HATA] Hedef boyut kontrolü yok
+    gets(buffer);  
+    strcpy(buffer, "a very long piece of data"); 
     
     // --- 2. Genişletilmiş Analiz (Extended Modu) ---
-    char *user_input = "tehlikeli";
-    printf(user_input); // [HATA] Format string açığı
+    char *user_input = "dangerous_input";
+    printf(user_input); 
     
-    system("ls -la"); // [HATA] Command injection riski
+    system("ls -la"); 
     
     return 0;
 }

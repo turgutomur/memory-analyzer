@@ -12,7 +12,7 @@ void print_usage() {
 }
 
 int main(int argc, char *argv[]) {
-    // En az 3 argüman olmalı: ./app2 [mod] [dosya1]
+    
     if (argc < 3) {
         print_usage();
         return 1;
@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     const char *mode_arg = argv[1];
     int mode = 0;
 
-    // Modu belirle (Sadece bir kere yapılır)
+    
     if (strcmp(mode_arg, "-s") == 0) {
         mode = MODE_SCAN;
     } 
@@ -37,10 +37,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // --- ÇOKLU DOSYA DÖNGÜSÜ --- 
-    // argv[0] -> program adı
-    // argv[1] -> mod (-s, -r, -x)
-    // argv[2] ve sonrası -> dosya isimleri
+
     
     for (int i = 2; i < argc; i++) {
         const char *filename = argv[i];

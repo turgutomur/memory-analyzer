@@ -5,16 +5,16 @@
 int main() {
     char buffer[10];
     
-    // Test: Gets (Unsafe)
+    /
     gets(buffer); 
     
-    // Test: Strcpy (Unsafe)
-    strcpy(buffer, "cok uzun bir veri"); 
     
-    // Test: System (Command Injection)
+    strcpy(buffer, "a very long piece of data");
+    
+    
     system("ls");
 
-    // Test: Format String
+    
     char *input = "risk";
     printf(input);
     
